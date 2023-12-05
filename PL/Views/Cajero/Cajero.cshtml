@@ -1,0 +1,51 @@
+﻿@model ML.SaldoCajero
+@{
+    ViewBag.Title = "Cajero";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Cajero</h2>
+<hr />
+<div class="container">
+    <a class="btn btn-success" href="@Url.Action("Form","Retiro")">Retirar</a>
+</div>
+<hr />
+<div class="container">
+    <table class="table table-dark table-hover text-center">
+        <thead>
+            <tr>
+                <th>Denominaciones</th>
+                <th>Candidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1,000</td>
+                <td>@Model.Billetes1000</td>
+            </tr>
+            <tr>
+                <td>500</td>
+                <td>@Model.Billetes500</td>
+            </tr>
+            <tr>
+                <td>200</td>
+                <td>@Model.Billetes200</td>
+            </tr>
+            <tr>
+                <td>100</td>
+                <td>@Model.Billetes100</td>
+            </tr>
+            <tr>
+                <td>50</td>
+                <td>@Model.Billetes50</td>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>@Model.Billetes20</td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <label class="text-capitalize">Saldo total: $ @Model.SaldoTotal</label>
+    </div>
+</div>

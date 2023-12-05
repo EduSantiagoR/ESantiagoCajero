@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<h2 class="text-center">Realizar un retiro</h2>
+<hr />
+<style>
+    .centrar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<div class="centrar">
+    <form method="post" class="form" action="~/Retiro/Form">
+        <div>
+            <label>¿Qué cantidad deseas retirar?</label>
+            <input id="cantidad"
+                   style="border-width:3px"
+                   class="form-control"
+                   required
+                   name="cantidad"
+                   onkeypress="return numbersOnly(event, 'lblError')"
+                   onkeyup="TerminarEnCero()" />
+        </div>
+        <div>
+            <label id="lblError"></label><br />
+            <label id="lblErrorTerminacion"></label>
+            <br />
+        </div>
+        <div class="centrar">
+            <button 
+                    id="btnRetirar"
+                    disabled 
+                    class="btn btn-success" 
+                    type="submit">Retirar  <i class="fa-solid fa-hand-holding-dollar"></i></button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function numbersOnly(e, lbl) {
+        var charCode = e.keyCode;
+        if ((charCode > 47 && charCode < 58) || charCode == 8) {
+            $('#' + lbl).text("");
+            $('#cantidad').css('border-color', 'green');
+            $('#btnRetirar').removeAttr('disabled');
+            return true;
+        }
+        else {
+            $('#' + lbl).text("Sólo se admiten números.");
+            $('#' + lbl).css('color', 'red');
+            $('#cantidad').css('border-color', 'red');
+            $("#btnRetirar").attr('disabled', 'disabled');
+            return false;
+        }
+    }
+    function TerminarEnCero() {
+        var cantidad = $('#cantidad').val();
+        const regex = /\d*0$/;
+        if (regex.test(cantidad) && parseInt(cantidad) >= 20) {
+            $('#lblErrorTerminacion').text("");
+            $('#btnRetirar').removeAttr('disabled');
+        }
+        else {
+            $('#lblErrorTerminacion').text("Sólo se admiten cantidades mayores a 20 y con terminación en 0.");
+            $('#lblErrorTerminacion').css('color', 'red');
+            $("#btnRetirar").attr('disabled', 'disabled');
+        }
+    }
+</script>

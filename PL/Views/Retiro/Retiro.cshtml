@@ -1,0 +1,39 @@
+﻿@model ML.Retiro 
+@{
+    ViewBag.Title = "Retiro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Retiros realizados</h2>
+<hr />
+<div class="container">
+    <table class="table table-dark table-hover text-center">
+        <thead>
+            <tr>
+                <th>Fecha y hora</th>
+                <th>1,000</th>
+                <th>500</th>
+                <th>200</th>
+                <th>100</th>
+                <th>50</th>
+                <th>20</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(ML.Retiro retiro in Model.Retiros)
+            {
+                <tr>
+                    <td>@retiro.FechaRetiro</td>
+                    <td>@retiro.Billetes1000</td>
+                    <td>@retiro.Billetes500</td>
+                    <td>@retiro.Billetes200</td>
+                    <td>@retiro.Billetes100</td>
+                    <td>@retiro.Billetes50</td>
+                    <td>@retiro.Billetes20</td>
+                    <td>$ @retiro.TotalRetiro</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

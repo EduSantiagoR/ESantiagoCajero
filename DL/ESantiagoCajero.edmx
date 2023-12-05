@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ESantiagoCajeroModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Retiros">
+          <Key>
+            <PropertyRef Name="IdRetiro" />
+          </Key>
+          <Property Name="IdRetiro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaRetiro" Type="datetime" Nullable="false" />
+          <Property Name="Billetes1000" Type="int" />
+          <Property Name="Billetes500" Type="int" />
+          <Property Name="Billetes200" Type="int" />
+          <Property Name="Billetes100" Type="int" />
+          <Property Name="Billetes50" Type="int" />
+          <Property Name="Billetes20" Type="int" />
+          <Property Name="TotalRetiro" Type="int" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="SaldoCajero">
+          <Key>
+            <PropertyRef Name="IdCajero" />
+          </Key>
+          <Property Name="IdCajero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Billetes1000" Type="int" />
+          <Property Name="Billetes500" Type="int" />
+          <Property Name="Billetes200" Type="int" />
+          <Property Name="Billetes100" Type="int" />
+          <Property Name="Billetes50" Type="int" />
+          <Property Name="Billetes20" Type="int" />
+          <Property Name="SaldoTotal" Type="int" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <Function Name="CajeroGetSaldo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="RealizarRetiro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Billetes1000" Type="int" Mode="In" />
+          <Parameter Name="Billetes500" Type="int" Mode="In" />
+          <Parameter Name="Billetes200" Type="int" Mode="In" />
+          <Parameter Name="Billetes100" Type="int" Mode="In" />
+          <Parameter Name="Billetes50" Type="int" Mode="In" />
+          <Parameter Name="Billetes20" Type="int" Mode="In" />
+        </Function>
+        <Function Name="RetiroGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ESantiagoCajeroModelStoreContainer">
+          <EntitySet Name="Retiros" EntityType="Self.Retiros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SaldoCajero" EntityType="Self.SaldoCajero" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ESantiagoCajeroModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Retiro">
+          <Key>
+            <PropertyRef Name="IdRetiro" />
+          </Key>
+          <Property Name="IdRetiro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaRetiro" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Billetes1000" Type="Int32" />
+          <Property Name="Billetes500" Type="Int32" />
+          <Property Name="Billetes200" Type="Int32" />
+          <Property Name="Billetes100" Type="Int32" />
+          <Property Name="Billetes50" Type="Int32" />
+          <Property Name="Billetes20" Type="Int32" />
+          <Property Name="TotalRetiro" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="SaldoCajero">
+          <Key>
+            <PropertyRef Name="IdCajero" />
+          </Key>
+          <Property Name="IdCajero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Billetes1000" Type="Int32" />
+          <Property Name="Billetes500" Type="Int32" />
+          <Property Name="Billetes200" Type="Int32" />
+          <Property Name="Billetes100" Type="Int32" />
+          <Property Name="Billetes50" Type="Int32" />
+          <Property Name="Billetes20" Type="Int32" />
+          <Property Name="SaldoTotal" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityContainer Name="ESantiagoCajeroEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Retiros" EntityType="Self.Retiro" />
+          <EntitySet Name="SaldoCajeroes" EntityType="Self.SaldoCajero" />
+          <FunctionImport Name="RealizarRetiro">
+            <Parameter Name="Billetes1000" Mode="In" Type="Int32" />
+            <Parameter Name="Billetes500" Mode="In" Type="Int32" />
+            <Parameter Name="Billetes200" Mode="In" Type="Int32" />
+            <Parameter Name="Billetes100" Mode="In" Type="Int32" />
+            <Parameter Name="Billetes50" Mode="In" Type="Int32" />
+            <Parameter Name="Billetes20" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CajeroGetSaldo" ReturnType="Collection(ESantiagoCajeroModel.CajeroGetSaldo_Result)" />
+          <FunctionImport Name="RetiroGetAll" ReturnType="Collection(ESantiagoCajeroModel.RetiroGetAll_Result)" />
+        </EntityContainer>
+        <ComplexType Name="CajeroGetSaldo_Result">
+          <Property Type="Int32" Name="IdCajero" Nullable="false" />
+          <Property Type="Int32" Name="Billetes1000" Nullable="true" />
+          <Property Type="Int32" Name="Billetes500" Nullable="true" />
+          <Property Type="Int32" Name="Billetes200" Nullable="true" />
+          <Property Type="Int32" Name="Billetes100" Nullable="true" />
+          <Property Type="Int32" Name="Billetes50" Nullable="true" />
+          <Property Type="Int32" Name="Billetes20" Nullable="true" />
+          <Property Type="Int32" Name="SaldoTotal" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="RetiroGetAll_Result">
+          <Property Type="Int32" Name="IdRetiro" Nullable="false" />
+          <Property Type="DateTime" Name="FechaRetiro" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Billetes1000" Nullable="true" />
+          <Property Type="Int32" Name="Billetes500" Nullable="true" />
+          <Property Type="Int32" Name="Billetes200" Nullable="true" />
+          <Property Type="Int32" Name="Billetes100" Nullable="true" />
+          <Property Type="Int32" Name="Billetes50" Nullable="true" />
+          <Property Type="Int32" Name="Billetes20" Nullable="true" />
+          <Property Type="Int32" Name="TotalRetiro" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ESantiagoCajeroModelStoreContainer" CdmEntityContainer="ESantiagoCajeroEntities">
+          <EntitySetMapping Name="Retiros">
+            <EntityTypeMapping TypeName="ESantiagoCajeroModel.Retiro">
+              <MappingFragment StoreEntitySet="Retiros">
+                <ScalarProperty Name="IdRetiro" ColumnName="IdRetiro" />
+                <ScalarProperty Name="FechaRetiro" ColumnName="FechaRetiro" />
+                <ScalarProperty Name="Billetes1000" ColumnName="Billetes1000" />
+                <ScalarProperty Name="Billetes500" ColumnName="Billetes500" />
+                <ScalarProperty Name="Billetes200" ColumnName="Billetes200" />
+                <ScalarProperty Name="Billetes100" ColumnName="Billetes100" />
+                <ScalarProperty Name="Billetes50" ColumnName="Billetes50" />
+                <ScalarProperty Name="Billetes20" ColumnName="Billetes20" />
+                <ScalarProperty Name="TotalRetiro" ColumnName="TotalRetiro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SaldoCajeroes">
+            <EntityTypeMapping TypeName="ESantiagoCajeroModel.SaldoCajero">
+              <MappingFragment StoreEntitySet="SaldoCajero">
+                <ScalarProperty Name="IdCajero" ColumnName="IdCajero" />
+                <ScalarProperty Name="Billetes1000" ColumnName="Billetes1000" />
+                <ScalarProperty Name="Billetes500" ColumnName="Billetes500" />
+                <ScalarProperty Name="Billetes200" ColumnName="Billetes200" />
+                <ScalarProperty Name="Billetes100" ColumnName="Billetes100" />
+                <ScalarProperty Name="Billetes50" ColumnName="Billetes50" />
+                <ScalarProperty Name="Billetes20" ColumnName="Billetes20" />
+                <ScalarProperty Name="SaldoTotal" ColumnName="SaldoTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="RealizarRetiro" FunctionName="ESantiagoCajeroModel.Store.RealizarRetiro" />
+          <FunctionImportMapping FunctionImportName="CajeroGetSaldo" FunctionName="ESantiagoCajeroModel.Store.CajeroGetSaldo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ESantiagoCajeroModel.CajeroGetSaldo_Result">
+                <ScalarProperty Name="IdCajero" ColumnName="IdCajero" />
+                <ScalarProperty Name="Billetes1000" ColumnName="Billetes1000" />
+                <ScalarProperty Name="Billetes500" ColumnName="Billetes500" />
+                <ScalarProperty Name="Billetes200" ColumnName="Billetes200" />
+                <ScalarProperty Name="Billetes100" ColumnName="Billetes100" />
+                <ScalarProperty Name="Billetes50" ColumnName="Billetes50" />
+                <ScalarProperty Name="Billetes20" ColumnName="Billetes20" />
+                <ScalarProperty Name="SaldoTotal" ColumnName="SaldoTotal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RetiroGetAll" FunctionName="ESantiagoCajeroModel.Store.RetiroGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ESantiagoCajeroModel.RetiroGetAll_Result">
+                <ScalarProperty Name="IdRetiro" ColumnName="IdRetiro" />
+                <ScalarProperty Name="FechaRetiro" ColumnName="FechaRetiro" />
+                <ScalarProperty Name="Billetes1000" ColumnName="Billetes1000" />
+                <ScalarProperty Name="Billetes500" ColumnName="Billetes500" />
+                <ScalarProperty Name="Billetes200" ColumnName="Billetes200" />
+                <ScalarProperty Name="Billetes100" ColumnName="Billetes100" />
+                <ScalarProperty Name="Billetes50" ColumnName="Billetes50" />
+                <ScalarProperty Name="Billetes20" ColumnName="Billetes20" />
+                <ScalarProperty Name="TotalRetiro" ColumnName="TotalRetiro" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
